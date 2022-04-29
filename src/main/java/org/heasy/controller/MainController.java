@@ -70,6 +70,7 @@ public class MainController {
             //第一个进来的 设置为owner
             if (i == 1) {
                 owner = name;
+                ownerSessionId = id;
             }
             MAP.put(name, i);
             return ResponseEntity.ok(JSONUtil.toJsonStr(MAP) + getInfo(name));
@@ -80,6 +81,9 @@ public class MainController {
     public ResponseEntity<?> start(HttpServletRequest request) {
         final String id = request.getSession().getId();
         if (!StrUtil.equals(id, ownerSessionId)) {
+            if (ownerSessionId == null) {
+                return ResponseEntity.ok("本局还没有参与人");
+            }
             return ResponseEntity.ok("你没有重开权限 当前局管理员是:" + owner);
         }
         if (!SESSION_MAP.isEmpty()) {
