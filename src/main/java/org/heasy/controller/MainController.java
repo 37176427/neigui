@@ -140,6 +140,16 @@ public class MainController {
         }
     }
 
+    @GetMapping("/rule")
+    public ResponseEntity<?> getRule() {
+        String rule =
+                  "1 胜利时 平民每人+1 内鬼-4 " + StrUtil.CRLF
+                + "  失败时 平民每人-1 内鬼+4" + StrUtil.CRLF
+                + "2 评分最低的-1给评分最高的+1" + StrUtil.CRLF
+                + "3 投中内鬼 +1  内鬼-1";
+        return ResponseEntity.ok(rule);
+    }
+
     private static synchronized String getInfo(String name) {
         final Integer integer = MAP.get(name);
         if (integer == null) {
